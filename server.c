@@ -34,11 +34,8 @@ void handle_signals(int sig, siginfo_t *info, void *context)
         bit = 0;
         c = 0;
     }
-
-    if (kill(client_pid, SIGUSR1) == -1)
-    {
-        ft_printf("Error: Failed to send signal to client");
-    }
+    usleep(100);
+	kill(client_pid, SIGUSR1);
 }
 
 int main(void)
@@ -49,6 +46,7 @@ int main(void)
 
     sa.sa_sigaction = handle_signals;
     sa.sa_flags = SA_SIGINFO | SA_RESTART;
+    sigemptyset(&sa.sa_mask);
     sigaction(SIGUSR1, &sa, NULL);
     sigaction(SIGUSR2, &sa, NULL);
 

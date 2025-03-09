@@ -11,15 +11,15 @@ static void recieved(int sig)
 static void send_message(int pid, char c)
 {
     unsigned char temp = c;
-    int i = 0;
+    int i = 7;
 
-    while (i < 8)
+    while (i >= 0)
     {
         if (temp >> i & 1)
         {
             if (kill(pid, SIGUSR1) == -1)
             {
-                ft_printf("Error: Failed to send SIGUSR1");
+                ft_printf("Error: Failed to send SIGUSR1\n");
                 return;
             }
         }
@@ -27,15 +27,14 @@ static void send_message(int pid, char c)
         {
             if (kill(pid, SIGUSR2) == -1)
             {
-                ft_printf("Error: Failed to send SIGUSR2");
+                ft_printf("Error: Failed to send SIGUSR2\n");
                 return;
             }
         }
-        i++;
+        i--;
         while (!checkrecive)
             pause();
         checkrecive = 0;
-        usleep(600);
     }
 }
 
@@ -68,7 +67,7 @@ int main(int ac, char *av[])
 {
     if (ac != 3)
     {
-        ft_printf("us this format : <PID> <message>\n");
+        ft_printf("Use this format: <PID> <message>\n");
         return 0;
     }
 
@@ -81,11 +80,13 @@ int main(int ac, char *av[])
 
     signal(SIGUSR1, recieved);
 
-    for (char *msg = av[2]; *msg; msg++)
+    char *msg = av[2];
+    while (*msg)
     {
         send_message(server_pid, *msg);
-        // usleep(200);
+        usleep(200);
+        msg++;
     }
 
-    return (1);
+    return 1;
 }

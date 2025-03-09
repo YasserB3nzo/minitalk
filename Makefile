@@ -1,8 +1,8 @@
-CC = gcc
+CC = cc
 
 CFLAGS = -Wall -Wextra -Werror
 
-SRCS = client.c server.c
+SRCS = client.c client_bonus.c server.c server_bonus.c
 
 OBJS = $(SRCS:.c=.o)
 
@@ -22,7 +22,21 @@ client.o: client.c
 server.o: server.c
 	$(CC) $(CFLAGS) -c server.c -o server.o
 
+bonus: client_bonus server_bonus
+
+client_bonus : client_bonus.o $(LIBFTPRINTF)
+	$(CC) $(CFLAGS) -o client_bonus client_bonus.o -L./my-printf -lftprintf
+
+server_bonus: server_bonus.o $(LIBFTPRINTF)
+	$(CC) $(CFLAGS) -o server_bonus server_bonus.o -L./my-printf -lftprintf
+
+client_bonus.o: client_bonus.c
+	$(CC) $(CFLAGS) -c client_bonus.c -o client_bonus.o
+
+server_bonus.o: server_bonus.c
+	$(CC) $(CFLAGS) -c server_bonus.c -o server_bonus.o
+
 clean:
-	rm -f $(OBJS) client server
+	rm -f $(OBJS) client server client_bonus server_bonus
 
 .PHONY: all clean

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   server_bonus.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ybenzidi <ybenzidi@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/09 20:32:12 by ybenzidi          #+#    #+#             */
+/*   Updated: 2025/03/09 20:32:12 by ybenzidi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "./minitalk.h"
 
 void	take_action(char *c, int *bit, int *pid)
@@ -49,10 +61,6 @@ int	main(void)
 	sigaction(SIGUSR1, &sa, 0);
 	sigaction(SIGUSR2, &sa, 0);
 	while (1)
-	{
-		// sigaction(SIGUSR1, &sa, 0);
-		// sigaction(SIGUSR2, &sa, 0);
 		pause();
-	}
 	return (0);
 }

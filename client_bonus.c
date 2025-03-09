@@ -1,11 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   client_bonus.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ybenzidi <ybenzidi@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/09 20:32:14 by ybenzidi          #+#    #+#             */
+/*   Updated: 2025/03/09 20:32:14 by ybenzidi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "./minitalk.h"
 
 static int	g_ack_received = 0;
 
-void	received_message(int sig)
+void	received_message()
 {
-	(void)sig;
-	ft_printf("\033[1;32mThe message was received\033[0m\n");
+	ft_printf("The message was received\n");
 }
 
 static void	recieved_bonus(int sig, siginfo_t *info, void *context)
@@ -13,20 +24,16 @@ static void	recieved_bonus(int sig, siginfo_t *info, void *context)
 	(void)info;
 	(void)context;
 	if (sig == SIGUSR2)
-		received_message(sig);
+		received_message();
 	else if (sig == SIGUSR1)
 		g_ack_received = 1;
 }
 int ft_atoi(const char *str)
 {
     int result = 0;
-    int sign = 1;
 
-    if (*str == '-')
-    {
-        sign = -1;
-        str++;
-    }
+    if (*str == '-' || *str == '+')
+        return 0;
     while (*str)
     {
         if (*str >= '0' && *str <= '9')
@@ -35,11 +42,9 @@ int ft_atoi(const char *str)
             str++;
         }
         else
-        {
             return 0;
-        }
     }
-    return result * sign;
+    return result ;
 }
 
 void	handler_bonus(int pid, char c)
@@ -90,15 +95,14 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	pid = ft_atoi(argv[1]);
-	int server_pid = ft_atoi(argv[1]);
-    if (server_pid <= 0)
+    if (pid <= 0)
     {
         ft_printf("Invalid PID\n");
         return 0;
     }
 	sa.sa_sigaction = &recieved_bonus;
-	sa.sa_flags = SA_SIGINFO | SA_RESTART;
-	sigemptyset(&sa.sa_mask);
+	sa.sa_flags = SA_SIGINFO | SA_RESTART; // systemcall 
+	sigemptyset(&sa.sa_mask); // mask signals
 	sigaction(SIGUSR1, &sa, NULL);
 	sigaction(SIGUSR2, &sa, NULL);
 	sent_msg(argv[2], pid);

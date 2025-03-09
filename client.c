@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   client.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ybenzidi <ybenzidi@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/09 20:32:17 by ybenzidi          #+#    #+#             */
+/*   Updated: 2025/03/09 20:32:17 by ybenzidi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "./minitalk.h"
 
 static int checkrecive = 0;
@@ -15,26 +27,21 @@ static void send_message(int pid, char c)
 
     while (i >= 0)
     {
-        if (temp >> i & 1)
+        if (temp >> i & 1)  // 00110010
         {
             if (kill(pid, SIGUSR1) == -1)
-            {
-                ft_printf("Error: Failed to send SIGUSR1\n");
-                return;
-            }
+                exit (1);
         }
         else
         {
             if (kill(pid, SIGUSR2) == -1)
-            {
-                ft_printf("Error: Failed to send SIGUSR2\n");
-                return;
-            }
+                exit (1);
         }
         i--;
         while (!checkrecive)
             pause();
         checkrecive = 0;
+        usleep(100);
     }
 }
 

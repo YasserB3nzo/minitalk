@@ -42,7 +42,7 @@ int main(void)
 {
     struct sigaction sa;
 
-    printf("Server PID: %d\n", getpid());
+    ft_printf("Server PID: %d\n", getpid());
 
     sa.sa_sigaction = handle_signals;
     sa.sa_flags = SA_SIGINFO | SA_RESTART;

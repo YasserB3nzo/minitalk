@@ -37,6 +37,11 @@ server_bonus.o: server_bonus.c
 	$(CC) $(CFLAGS) -c server_bonus.c -o server_bonus.o
 
 clean:
-	rm -f $(OBJS) client server client_bonus server_bonus
+	rm -f $(OBJS)
+
+fclean : clean
+	rm -rf client_bonus client server_bonus server
+
+re : fclean all
 
 .PHONY: all clean

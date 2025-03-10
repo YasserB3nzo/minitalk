@@ -12,19 +12,17 @@
 #include "./minitalk.h"
 
 static int	g_ack_received = 0;
-void	received_message(void)
-{
-	ft_printf("The message was received\n");
-}
+
 static void	recieved_bonus(int sig, siginfo_t *info, void *context)
 {
 	(void)info;
 	(void)context;
 	if (sig == SIGUSR2)
-		received_message();
+		ft_printf("The message was received\n");
 	else if (sig == SIGUSR1)
 		g_ack_received = 1;
 }
+
 int	ft_atoi(const char *str)
 {
 	int	result;
@@ -44,6 +42,7 @@ int	ft_atoi(const char *str)
 	}
 	return (result);
 }
+
 void	handler_bonus(int pid, char c)
 {
 	unsigned char	temp;
@@ -70,6 +69,7 @@ void	handler_bonus(int pid, char c)
 		usleep(5);
 	}
 }
+
 void	sent_msg(char *str, int pid)
 {
 	int	i;
@@ -79,10 +79,12 @@ void	sent_msg(char *str, int pid)
 		handler_bonus(pid, str[i++]);
 	handler_bonus(pid, '\0');
 }
+
 int	main(int argc, char **argv)
 {
-	int pid;
-	struct sigaction sa;
+	int					pid;
+	struct sigaction	sa;
+
 	if (argc != 3)
 	{
 		ft_printf("Use this format: <PID> <message>\n");

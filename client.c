@@ -69,8 +69,8 @@ int	ft_atoi(const char *str)
 
 int	main(int ac, char *av[])
 {
-	int server_pid;
-	char *msg;
+	int		server_pid;
+	char	*msg;
 
 	if (ac != 3)
 	{
@@ -88,7 +88,7 @@ int	main(int ac, char *av[])
 	while (*msg)
 	{
 		send_message(server_pid, *msg);
-        usleep(100);
+		usleep(100);
 		msg++;
 	}
 	return (1);

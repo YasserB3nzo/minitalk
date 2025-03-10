@@ -17,6 +17,7 @@ void	take_action(char *c, int *bit)
 	*c = 0;
 	*bit = 0;
 }
+
 void	handle_signals(int sig, siginfo_t *info, void *context)
 {
 	static int	bit;
@@ -43,9 +44,11 @@ void	handle_signals(int sig, siginfo_t *info, void *context)
 	usleep(100);
 	kill(client_pid, SIGUSR1);
 }
+
 int	main(void)
 {
-	struct sigaction sa;
+	struct sigaction	sa;
+
 	ft_printf("Server PID: %d\n", getpid());
 	sa.sa_sigaction = handle_signals;
 	sa.sa_flags = SA_SIGINFO | SA_RESTART;

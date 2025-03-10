@@ -9,16 +9,13 @@
 /*   Updated: 2024/12/19 21:57:22 by ybenzidi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "ft_printf.h"
-
 int	putnbrbase(long number, const char *base, int base_length)
 {
 	int		count;
 	int		i;
 	char	result[75];
 	int		check;
-
 	count = 0;
 	i = 0;
 	check = checkputnbr(&number);

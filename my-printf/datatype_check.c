@@ -9,13 +9,10 @@
 /*   Updated: 2024/12/19 21:58:51 by ybenzidi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "ft_printf.h"
-
 int	datatype_check(char c, va_list args)
 {
 	int			count;
-
 	count = 0;
 	if (c == 'd' || c == 'i')
 		count = putnbrbase((long)va_arg(args, int), "0123456789", 10);

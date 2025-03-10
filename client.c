@@ -13,8 +13,9 @@
 
 static int	g_checkrecive = 0;
 
-static void	recieved(void)
+static void	recieved(int sig)
 {
+	(void)sig;
 	g_checkrecive = 1;
 }
 

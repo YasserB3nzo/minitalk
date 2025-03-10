@@ -6,20 +6,23 @@
 /*   By: ybenzidi <ybenzidi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 20:32:17 by ybenzidi          #+#    #+#             */
-/*   Updated: 2025/03/09 20:32:17 by ybenzidi         ###   ########.fr       */
+/*   Updated: 2025/03/10 01:16:40 by ybenzidi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "./minitalk.h"
+
 static int	g_checkrecive = 0;
-static void	recieved(int sig)
+
+static void	recieved(void)
 {
-	(void)sig;
 	g_checkrecive = 1;
 }
+
 static void	send_message(int pid, char c)
 {
 	unsigned char	temp;
 	int				i;
+
 	temp = c;
 	i = 7;
 	while (i >= 0)
@@ -41,16 +44,15 @@ static void	send_message(int pid, char c)
 		usleep(100);
 	}
 }
+
 int	ft_atoi(const char *str)
 {
 	int	result;
-	int	sign;
+
 	result = 0;
-	sign = 1;
-	if (*str == '-')
+	if (*str == '-' || *str == '+')
 	{
-		sign = -1;
-		str++;
+		return (0);
 	}
 	while (*str)
 	{
@@ -62,12 +64,14 @@ int	ft_atoi(const char *str)
 		else
 			return (0);
 	}
-	return (result * sign);
+	return (result);
 }
+
 int	main(int ac, char *av[])
 {
-	int		server_pid;
-	char	*msg;
+	int server_pid;
+	char *msg;
+
 	if (ac != 3)
 	{
 		ft_printf("Use this format: <PID> <message>\n");
@@ -84,7 +88,7 @@ int	main(int ac, char *av[])
 	while (*msg)
 	{
 		send_message(server_pid, *msg);
-		usleep(200);
+        usleep(100);
 		msg++;
 	}
 	return (1);

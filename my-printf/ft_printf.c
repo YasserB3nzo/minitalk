@@ -9,10 +9,13 @@
 /*   Updated: 2024/12/19 21:56:55 by ybenzidi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "ft_printf.h"
+
 int	ft_putstr(const char *str)
 {
 	int	count;
+
 	count = 0;
 	if (!str)
 	{
@@ -26,9 +29,11 @@ int	ft_putstr(const char *str)
 	}
 	return (count);
 }
+
 int	putpointer(void	*ptr_address)
 {
 	int	count;
+
 	count = 0;
 	if (!ptr_address)
 	{
@@ -40,10 +45,12 @@ int	putpointer(void	*ptr_address)
 	count += putnbrbase((unsigned long)ptr_address, "0123456789abcdef", 16);
 	return (count);
 }
+
 int	ft_printf(const char *datatype, ...)
 {
 	int		count;
 	va_list	args;
+
 	if (!datatype)
 		return (-1);
 	va_start(args, datatype);

@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "./minitalk.h"
+
 static int	g_ack_received = 0;
 void	received_message(void)
 {
@@ -27,6 +28,7 @@ static void	recieved_bonus(int sig, siginfo_t *info, void *context)
 int	ft_atoi(const char *str)
 {
 	int	result;
+
 	result = 0;
 	if (*str == '-' || *str == '+')
 		return (0);
@@ -46,6 +48,7 @@ void	handler_bonus(int pid, char c)
 {
 	unsigned char	temp;
 	int				i;
+
 	temp = c;
 	i = 8;
 	while (i > 0)
@@ -70,6 +73,7 @@ void	handler_bonus(int pid, char c)
 void	sent_msg(char *str, int pid)
 {
 	int	i;
+
 	i = 0;
 	while (str[i])
 		handler_bonus(pid, str[i++]);
@@ -77,8 +81,8 @@ void	sent_msg(char *str, int pid)
 }
 int	main(int argc, char **argv)
 {
-	int					pid;
-	struct sigaction	sa;
+	int pid;
+	struct sigaction sa;
 	if (argc != 3)
 	{
 		ft_printf("Use this format: <PID> <message>\n");

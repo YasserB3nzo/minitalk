@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "./minitalk.h"
+
 void	take_action(char *c, int *bit, int *pid)
 {
 	if (*c == '\0')
@@ -25,6 +26,7 @@ void	handle_bonus(int sig, siginfo_t *info, void *context)
 	static char	c;
 	static int	current_pid;
 	static int	client_pid;
+
 	(void)context;
 	if (!client_pid)
 		client_pid = info->si_pid;
@@ -46,7 +48,7 @@ void	handle_bonus(int sig, siginfo_t *info, void *context)
 }
 int	main(void)
 {
-	struct sigaction	sa;
+	struct sigaction sa;
 	ft_printf("Server PID: %d\n", getpid());
 	sa.sa_sigaction = &handle_bonus;
 	sa.sa_flags = SA_SIGINFO | SA_RESTART;

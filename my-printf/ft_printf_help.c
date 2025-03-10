@@ -9,11 +9,14 @@
 /*   Updated: 2024/12/19 21:56:42 by ybenzidi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "ft_printf.h"
+
 int	checkchar(int c)
 {
 	return (write(1, &c, 1));
 }
+
 int	checkputnbr(long *number)
 {
 	if (*number == 0)
@@ -29,10 +32,12 @@ int	checkputnbr(long *number)
 	}
 	return (2);
 }
+
 int	process_format(const char *str, va_list args)
 {
 	int	count;
 	int	ret;
+
 	count = 0;
 	while (*str)
 	{

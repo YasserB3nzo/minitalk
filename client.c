@@ -6,7 +6,7 @@
 /*   By: ybenzidi <ybenzidi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 20:32:17 by ybenzidi          #+#    #+#             */
-/*   Updated: 2025/03/10 16:05:32 by ybenzidi         ###   ########.fr       */
+/*   Updated: 2025/03/10 01:16:40 by ybenzidi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "./minitalk.h"
@@ -42,7 +42,7 @@ static void	send_message(int pid, char c)
 		while (!g_checkrecive)
 			pause();
 		g_checkrecive = 0;
-		usleep(400);
+		usleep(100);
 	}
 }
 
@@ -89,6 +89,7 @@ int	main(int ac, char *av[])
 	while (*msg)
 	{
 		send_message(server_pid, *msg);
+		usleep(100);
 		msg++;
 	}
 	return (1);

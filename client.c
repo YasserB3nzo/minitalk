@@ -6,10 +6,10 @@
 /*   By: ybenzidi <ybenzidi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 20:32:17 by ybenzidi          #+#    #+#             */
-/*   Updated: 2025/03/10 01:16:40 by ybenzidi         ###   ########.fr       */
+/*   Updated: 2025/03/19 00:33:05 by ybenzidi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "./minitalk.h"
+
 
 static int	g_checkrecive = 0;
 
@@ -42,7 +42,7 @@ static void	send_message(int pid, char c)
 		while (!g_checkrecive)
 			pause();
 		g_checkrecive = 0;
-		usleep(100);
+		usleep(200);
 	}
 }
 
